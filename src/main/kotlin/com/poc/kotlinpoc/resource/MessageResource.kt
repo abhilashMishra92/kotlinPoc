@@ -11,13 +11,7 @@ import org.springframework.web.bind.annotation.*
 class MessageResource (var messageService: MessageService) {
 
     @GetMapping
-    fun getMessages(): List<Message> {
-        val list = messageService.getAllMessages()
-        for (message in list) {
-            createLinks(message)
-        }
-        return list
-    }
+    fun getMessages() = createLinks(messageService.getAllMessages())
 
     @GetMapping(value = "/{messageId}")
     fun getMessageByID(@PathVariable messageId: Int) = createLinks(messageService.getMessageByID(messageId))
@@ -33,15 +27,10 @@ class MessageResource (var messageService: MessageService) {
     fun deleteMessage(@PathVariable messageId: Int) = messageService.deleteMessage(messageId)
 
     @GetMapping(value = "/author/{author}")
-    fun getMessagesByAuthor(@PathVariable author: String): List<Message> {
-        val list = messageService.getAllMessagesByAuthor(author)
-        for (message in list) {
-            createLinks(message)
-        }
-        return list
-    }
+    fun getMessagesByAuthor(@PathVariable author: String) = createLinks(messageService.getAllMessagesByAuthor(author))
 
-    fun createLinks (message: Message): Message {
+
+    private fun createLinks (message: Message): Message {
         val selfLink = linkTo(methodOn(MessageResource::class.java).getMessageByID(message.messageId))
                 .withSelfRel().withType("GET")
         val commentLink = linkTo(methodOn(CommentResource::class.java).getAllComments(message.messageId))
@@ -51,4 +40,10 @@ class MessageResource (var messageService: MessageService) {
         return message
     }
 
+    private fun createLinks (list: List<Message>): List<Message> {
+        for (message in list) {
+            createLinks(message)
+        }
+        return list
+    }
 }
