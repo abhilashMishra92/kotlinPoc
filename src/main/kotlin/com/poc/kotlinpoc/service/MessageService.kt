@@ -16,4 +16,6 @@ interface MessageService {
 
     fun getAllMessagesByAuthor(author: String): List<Message>
 
+    fun getAllMessagesByContributorName(name: String): List<Message>
+
 }

@@ -5,7 +5,7 @@ import com.poc.kotlinpoc.service.CommentService
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/messages/{messageId}/comments")
+@RequestMapping("/poc/messages/{messageId}/comments")
 class CommentResource (var commentService: CommentService) {
 
     @GetMapping

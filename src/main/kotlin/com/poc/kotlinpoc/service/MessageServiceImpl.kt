@@ -2,18 +2,19 @@ package com.poc.kotlinpoc.service
 
 import com.poc.kotlinpoc.entity.Message
 import com.poc.kotlinpoc.repository.MessageRepository
+import mu.KotlinLogging
 import org.springframework.stereotype.Service
 
 @Service("messageService")
 class MessageServiceImpl (var messageRepository: MessageRepository): MessageService {
 
-    override fun getAllMessages(): List<Message> {
-        return messageRepository.findAll()
-    }
+    private val logger = KotlinLogging.logger {  }
 
-    override fun getMessageByID(messageId: Int): Message {
-        return messageRepository.findById(messageId).orElseThrow({Exception("message Id not found")})
-    }
+    override fun getAllMessages() = messageRepository.findAll()
+
+    override fun getMessageByID(messageId: Int)
+            = messageRepository.findById(messageId).orElseThrow({Exception("message Id not found")})
+
 
     override fun createMessage(message: Message): Message {
         if (messageRepository.existsById(message.messageId)) {
@@ -37,6 +38,11 @@ class MessageServiceImpl (var messageRepository: MessageRepository): MessageServ
     }
 
     override fun getAllMessagesByAuthor(author: String): List<Message> {
+        logger.info { "info logger" }
         return messageRepository.findByAuthorAllIgnoreCase(author)
+    }
+
+    override fun getAllMessagesByContributorName(name: String): List<Message> {
+        return messageRepository.findByContributorsName(name)
     }
 }

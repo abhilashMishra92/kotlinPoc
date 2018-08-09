@@ -7,7 +7,7 @@ import org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/messages")
+@RequestMapping("/poc/messages")
 class MessageResource (var messageService: MessageService) {
 
     @GetMapping
@@ -28,6 +28,9 @@ class MessageResource (var messageService: MessageService) {
 
     @GetMapping(value = "/author/{author}")
     fun getMessagesByAuthor(@PathVariable author: String) = createLinks(messageService.getAllMessagesByAuthor(author))
+
+    @GetMapping(value = "/contributor/{name}")
+    fun getMessagesByContributor(@PathVariable name: String) = createLinks(messageService.getAllMessagesByContributorName(name))
 
 
     private fun createLinks (message: Message): Message {
