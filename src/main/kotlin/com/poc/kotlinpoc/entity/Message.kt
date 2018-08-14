@@ -8,8 +8,9 @@ import org.springframework.hateoas.ResourceSupport
 open class Message (@Id val messageId: Int,
                     val text: String,
                     val author: String,
-                    val contributors: List<User>?) : ResourceSupport() {
+                    val contributors: List<User>?,
+                    val keywords: List<String>?) : ResourceSupport() {
     override fun toString(): String {
-        return "Message(messageId=$messageId, text='$text', author='$author', contributors=$contributors)"
+        return "Message(messageId=$messageId, text='$text', author='$author', contributors=$contributors, keywords=$keywords)"
     }
 }

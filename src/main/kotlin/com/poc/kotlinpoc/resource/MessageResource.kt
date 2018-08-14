@@ -32,6 +32,9 @@ class MessageResource (var messageService: MessageService) {
     @GetMapping(value = "/contributor/{name}")
     fun getMessagesByContributor(@PathVariable name: String) = createLinks(messageService.getAllMessagesByContributorName(name))
 
+    @GetMapping(value = "/keyword/{keyword}")
+    fun getMessagesByKeyword(@PathVariable keyword: String) = createLinks(messageService.getAllMessagesByKeyword(keyword))
+
 
     private fun createLinks (message: Message): Message {
         val selfLink = linkTo(methodOn(MessageResource::class.java).getMessageByID(message.messageId))

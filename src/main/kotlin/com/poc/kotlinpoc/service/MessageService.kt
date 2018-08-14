@@ -18,4 +18,6 @@ interface MessageService {
 
     fun getAllMessagesByContributorName(name: String): List<Message>
 
+    fun getAllMessagesByKeyword(keyword: String): List<Message>
+
 }

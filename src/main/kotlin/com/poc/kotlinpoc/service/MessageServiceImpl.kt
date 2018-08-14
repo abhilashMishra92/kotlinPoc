@@ -45,4 +45,8 @@ class MessageServiceImpl (var messageRepository: MessageRepository): MessageServ
     override fun getAllMessagesByContributorName(name: String): List<Message> {
         return messageRepository.findByContributorsName(name)
     }
+
+    override fun getAllMessagesByKeyword(keyword: String): List<Message> {
+        return messageRepository.findByKeywords(keyword)
+    }
 }
